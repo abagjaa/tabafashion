@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taba Fashion – Tailor & Konveksi Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --b50:#EBF4FB;--b100:#C8E2F5;--b200:#93C4E9;--b400:#4A9DD4;--b600:#2272A8;--b800:#144F78;--b900:#0A3352;
+  --navy:#0D2B42;--cream:#F8F4EF;--ww:#FDFAF6;--gold:#C9A84C;--gl:#E8D5A0;
+  --td:#1A1A1A;--tm:#4A4A4A;--tl:#7A7A7A;
+  --fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--ww);color:var(--td);font-size:16px;line-height:1.7;overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--fd);font-weight:300;letter-spacing:.02em}
+
+/* ── CURSOR ── */
+.cursor{position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-dot{width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);transition:transform .1s}
+.cursor-ring{width:40px;height:40px;border:1px solid rgba(255,255,255,.6);border-radius:50%;transform:translate(-50%,-50%);transition:all .18s ease;position:fixed;pointer-events:none;z-index:9998}
+.cursor-ring.hover{width:60px;height:60px;border-color:rgba(74,157,212,.8)}
+body:hover .cursor-dot{opacity:1}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--navy);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;transition:opacity .6s,visibility .6s}
+#loader.done{opacity:0;visibility:hidden}
+.loader-logo{font-family:var(--fd);font-size:2.5rem;font-weight:600;color:#fff;letter-spacing:.12em;opacity:0;animation:loaderFade .8s .2s ease forwards}
+.loader-logo span{color:var(--b400)}
+.loader-bar-wrap{width:200px;height:1px;background:rgba(255,255,255,.15);border-radius:1px;overflow:hidden}
+.loader-bar{height:100%;background:var(--b400);width:0;animation:loadBar 1.6s .3s ease forwards}
+.loader-sub{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--b200);opacity:0;animation:loaderFade .6s .5s ease forwards}
+@keyframes loaderFade{to{opacity:1}}
+@keyframes loadBar{to{width:100%}}
+
+/* ── NAVBAR ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 5rem;transition:all .4s}
+nav.scrolled{background:rgba(253,250,246,.92);backdrop-filter:blur(20px);padding:1rem 5rem;border-bottom:1px solid rgba(74,157,212,.12);box-shadow:0 2px 40px rgba(20,79,120,.07)}
+.nav-logo{font-family:var(--fd);font-size:1.7rem;font-weight:600;color:#fff;letter-spacing:.1em;text-decoration:none;transition:color .3s}
+nav.scrolled .nav-logo{color:var(--navy)}
+.nav-logo span{color:var(--b400)}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,.8);font-size:.8rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;position:relative}
+nav.scrolled .nav-links a{color:var(--tm)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--b400);transition:width .35s}
+.nav-links a:hover{color:var(--b400) !important}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--b600) !important;color:#fff !important;padding:.55rem 1.4rem;border-radius:2px}
+.nav-cta::after{display:none !important}
+.nav-cta:hover{background:var(--b800) !important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:#fff;border-radius:2px;transition:all .3s}
+nav.scrolled .hamburger span{background:var(--navy)}
+
+/* ── HERO ── */
+#hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center}
+#hero-canvas{position:absolute;inset:0;z-index:0}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--navy) 0%,#0d2035 45%,#0a1a2e 100%);z-index:1}
+.hero-grain{position:absolute;inset:0;z-index:2;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:200px}
+.hero-content{position:relative;z-index:10;padding:0 5rem;max-width:750px;padding-top:80px}
+.hero-eyebrow{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;opacity:0;animation:slideRight .8s .8s ease forwards}
+.hero-eyebrow-line{width:40px;height:1px;background:var(--b400)}
+.hero-eyebrow-text{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--b200);font-weight:400}
+.hero h1{font-size:clamp(3.5rem,6vw,6.5rem);line-height:1;color:#fff;margin-bottom:1.75rem;overflow:hidden}
+.hero-line{display:block;transform:translateY(110%);animation:slideUp .9s ease forwards}
+.hero-line:nth-child(1){animation-delay:.4s}
+.hero-line:nth-child(2){animation-delay:.55s;color:var(--b400);font-style:italic}
+.hero-line:nth-child(3){animation-delay:.7s}
+.hero-desc{font-size:1.05rem;color:rgba(200,226,245,.75);max-width:480px;margin-bottom:2.5rem;font-weight:300;line-height:1.85;opacity:0;animation:fadeIn .8s 1s ease forwards}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeIn .8s 1.2s ease forwards}
+.btn-primary{position:relative;background:var(--b600);color:#fff;padding:.9rem 2.2rem;text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;display:inline-flex;align-items:center;gap:.5rem;overflow:hidden;transition:transform .2s}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--b400);transform:translateX(-100%);transition:transform .35s ease}
+.btn-primary:hover::before{transform:translateX(0)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-primary span{position:relative;z-index:1}
+.btn-glass{border:1px solid rgba(74,157,212,.4);color:rgba(200,226,245,.9);padding:.9rem 2.2rem;text-decoration:none;font-size:.8rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;display:inline-flex;align-items:center;gap:.5rem;backdrop-filter:blur(8px);background:rgba(74,157,212,.06);transition:all .3s}
+.btn-glass:hover{background:rgba(74,157,212,.15);border-color:rgba(74,157,212,.7);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:5rem;z-index:10;display:flex;align-items:center;gap:1rem;opacity:0;animation:fadeIn .8s 1.6s ease forwards}
+.scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,transparent,var(--b400));position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:white;animation:scrollDown 2s 2s ease infinite}
+@keyframes scrollDown{0%{top:-100%}100%{top:100%}}
+.scroll-text{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(200,226,245,.5);writing-mode:vertical-lr;transform:rotate(180deg)}
+.hero-stats-float{position:absolute;right:5rem;bottom:4rem;z-index:10;display:flex;flex-direction:column;gap:1rem;opacity:0;animation:slideLeft .8s 1.4s ease forwards}
+.hero-stat{background:rgba(13,43,66,.6);backdrop-filter:blur(20px);border:1px solid rgba(74,157,212,.2);border-radius:4px;padding:1.25rem 1.75rem;text-align:right}
+.hero-stat-n{font-family:var(--fd);font-size:2rem;font-weight:600;color:#fff;line-height:1}
+.hero-stat-l{font-size:.72rem;color:var(--b200);letter-spacing:.06em;margin-top:.2rem}
+
+/* Thread particles canvas */
+#hero-canvas{position:absolute;inset:0;z-index:3}
+
+/* Floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat ease-in-out infinite}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(34,114,168,.18) 0%,transparent 70%);top:-100px;right:-100px;animation-duration:14s;z-index:4}
+.orb2{width:350px;height:350px;background:radial-gradient(circle,rgba(74,157,212,.12) 0%,transparent 70%);bottom:-80px;left:30%;animation-duration:18s;animation-delay:-7s;z-index:4}
+.orb3{width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.1) 0%,transparent 70%);top:30%;right:15%;animation-duration:12s;animation-delay:-3s;z-index:4}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-40px) scale(1.06)}}
+@keyframes slideUp{to{transform:translateY(0)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ── MARQUEE ── */
+.marquee-bar{background:var(--b600);padding:.85rem 0;overflow:hidden;white-space:nowrap;position:relative}
+.marquee-bar::before,.marquee-bar::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2}
+.marquee-bar::before{left:0;background:linear-gradient(90deg,var(--b600),transparent)}
+.marquee-bar::after{right:0;background:linear-gradient(-90deg,var(--b600),transparent)}
+.marquee-track{display:flex;width:max-content;animation:marquee 30s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.mitem{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.8);padding:0 2rem;display:flex;align-items:center;gap:2rem}
+.mitem::after{content:'✦';color:var(--gl);font-size:.6rem}
+
+/* ── SECTIONS ── */
+section{padding:8rem 5rem}
+.stag{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--b600);font-weight:500;display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+.stag::before{content:'';display:block;width:28px;height:1px;background:var(--b400)}
+.sec-title{font-size:clamp(2.2rem,4vw,3.5rem);color:var(--navy);line-height:1.1;margin-bottom:1.25rem}
+.sec-sub{font-size:1rem;color:var(--tm);font-weight:300;max-width:560px;line-height:1.85;margin-bottom:3.5rem}
+
+/* clip reveal */
+.clip-reveal{clip-path:inset(0 100% 0 0);transition:clip-path .9s cubic-bezier(.16,1,.3,1)}
+.clip-reveal.vis{clip-path:inset(0 0% 0 0)}
+.fade-slide{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.fade-slide.vis{opacity:1;transform:none}
+.fade-slide-r{opacity:0;transform:translateX(40px);transition:opacity .8s ease,transform .8s ease}
+.fade-slide-r.vis{opacity:1;transform:none}
+.scale-in{opacity:0;transform:scale(.92);transition:opacity .7s ease,transform .7s ease}
+.scale-in.vis{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}.d4{transition-delay:.44s}.d5{transition-delay:.56s}.d6{transition-delay:.68s}
+
+/* ── LAYANAN ── */
+#layanan{background:var(--cream);position:relative;overflow:hidden}
+#layanan::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(74,157,212,.06) 0%,transparent 70%);pointer-events:none}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(74,157,212,.1)}
+.svc-card{background:var(--cream);padding:3rem 2.5rem;position:relative;overflow:hidden;cursor:default;transition:background .4s}
+.svc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(74,157,212,.06) 0%,transparent 60%);opacity:0;transition:opacity .4s}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--b400),var(--b200));transition:width .5s ease}
+.svc-card:hover{background:#fff}
+.svc-card:hover::before{opacity:1}
+.svc-card:hover::after{width:100%}
+.svc-num{font-family:var(--fd);font-size:4rem;font-weight:600;color:rgba(74,157,212,.08);position:absolute;top:1.5rem;right:2rem;line-height:1;transition:color .4s}
+.svc-card:hover .svc-num{color:rgba(74,157,212,.15)}
+.svc-icon{width:48px;height:48px;border:1px solid rgba(74,157,212,.3);border-radius:3px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;transition:all .35s;background:rgba(235,244,251,.5)}
+.svc-card:hover .svc-icon{background:var(--b600);border-color:var(--b600);transform:rotate(-6deg) scale(1.05)}
+.svc-card:hover .svc-icon svg{stroke:#fff}
+.svc-icon svg{width:22px;height:22px;stroke:var(--b600);fill:none;stroke-width:1.5;transition:stroke .35s}
+.svc-card h3{font-size:1.35rem;color:var(--navy);margin-bottom:.75rem;transition:color .3s}
+.svc-card:hover h3{color:var(--b600)}
+.svc-card p{font-size:.88rem;color:var(--tm);font-weight:300;line-height:1.8}
+.svc-arrow{position:absolute;bottom:2.5rem;right:2.5rem;width:36px;height:36px;border-radius:50%;background:var(--b50);display:flex;align-items:center;justify-content:center;transform:scale(0);transition:transform .3s,background .3s}
+.svc-card:hover .svc-arrow{transform:scale(1)}
+.svc-arrow svg{width:14px;height:14px;stroke:var(--b600);fill:none;stroke-width:2;transform:rotate(-45deg)}
+
+/* ── PROSES ── */
+#proses{background:var(--ww);overflow:hidden}
+.proses-header{text-align:center;margin-bottom:5rem}
+.proses-header .sec-sub{margin:0 auto}
+.steps-wrap{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.steps-line{position:absolute;top:44px;left:12%;right:12%;height:1px;z-index:0;overflow:hidden}
+.steps-line-bg{position:absolute;inset:0;background:rgba(74,157,212,.15)}
+.steps-line-progress{position:absolute;inset:0;background:linear-gradient(90deg,var(--b400),var(--b200));transform-origin:left;transform:scaleX(0);transition:transform 1.2s ease}
+.steps-line-progress.vis{transform:scaleX(1)}
+.step-item{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 1.5rem;position:relative;z-index:1}
+.step-dot{width:88px;height:88px;border-radius:50%;background:#fff;border:1px solid rgba(74,157,212,.2);display:flex;align-items:center;justify-content:center;margin-bottom:2rem;position:relative;transition:all .5s;box-shadow:0 0 0 0 rgba(74,157,212,0)}
+.step-item.vis .step-dot{border-color:var(--b400);box-shadow:0 0 0 8px rgba(74,157,212,.08)}
+.step-dot-inner{width:56px;height:56px;border-radius:50%;background:var(--b50);border:1px solid var(--b200);display:flex;align-items:center;justify-content:center;transition:all .4s}
+.step-item.vis .step-dot-inner{background:var(--b600);border-color:var(--b600)}
+.step-num{font-family:var(--fd);font-size:1.4rem;font-weight:600;color:var(--b400);transition:color .4s}
+.step-item.vis .step-num{color:#fff}
+.step-item h4{font-size:1.2rem;color:var(--navy);margin-bottom:.5rem}
+.step-item p{font-size:.83rem;color:var(--tl);font-weight:300;line-height:1.75}
+
+/* ── KEUNGGULAN ── */
+#keunggulan{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+#keunggulan::before{content:'QUALITY';font-family:var(--fd);font-size:18vw;font-weight:600;color:rgba(255,255,255,.02);position:absolute;bottom:-2rem;left:-1rem;line-height:1;pointer-events:none;white-space:nowrap;letter-spacing:-.02em}
+.feat-layout{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.feat-stag{color:var(--b200)}
+.feat-stag::before{background:var(--b400)}
+.feat-title{color:#fff}
+.feat-sub{color:var(--b100)}
+.feat-list{display:flex;flex-direction:column;gap:1.25rem}
+.feat-item{display:flex;gap:1.25rem;align-items:flex-start;padding:1.5rem;border:1px solid rgba(74,157,212,.1);border-radius:4px;transition:all .4s;cursor:default}
+.feat-item:hover{background:rgba(74,157,212,.06);border-color:rgba(74,157,212,.3);transform:translateX(6px)}
+.feat-check{width:38px;height:38px;border-radius:50%;background:rgba(74,157,212,.12);border:1px solid rgba(74,157,212,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.feat-item:hover .feat-check{background:var(--b600);border-color:var(--b600)}
+.feat-check svg{width:16px;height:16px;stroke:var(--b200);fill:none;stroke-width:2;transition:stroke .3s}
+.feat-item:hover .feat-check svg{stroke:#fff}
+.feat-item h4{font-size:1.05rem;color:#fff;margin-bottom:.3rem}
+.feat-item p{font-size:.85rem;color:var(--b100);font-weight:300;line-height:1.75}
+/* Stats visual */
+.feat-visual{position:relative;height:520px}
+.fv-card{position:absolute;border-radius:8px;padding:2.5rem}
+.fv-back{width:82%;height:230px;background:rgba(74,157,212,.06);border:1px solid rgba(74,157,212,.15);top:0;right:0;transform:rotate(2deg)}
+.fv-main{width:88%;background:var(--b600);top:40px;left:0;transition:transform .4s}
+.fv-main:hover{transform:translateY(-6px)}
+.fv-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--b200);margin-bottom:.75rem}
+.fv-big{font-family:var(--fd);font-size:4rem;font-weight:600;color:#fff;line-height:1}
+.fv-sub{font-size:.85rem;color:var(--b100);font-weight:300;margin-top:.5rem}
+.fv-mini{position:absolute;bottom:0;right:0;width:58%;background:var(--gold);border-radius:6px;padding:1.5rem;transition:transform .4s;cursor:default}
+.fv-mini:hover{transform:translateY(-4px)}
+.fv-mini-l{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:.35rem}
+.fv-mini-v{font-family:var(--fd);font-size:2rem;font-weight:600;color:#fff}
+/* Animated counter */
+.counter-val{display:inline-block}
+
+/* ── PORTOFOLIO ── */
+#portofolio{background:var(--cream);overflow:hidden}
+.gal-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:250px 250px;gap:4px}
+.gal-item{position:relative;overflow:hidden;cursor:pointer;border-radius:2px}
+.gal-item:first-child{grid-row:span 2}
+.gal-bg{width:100%;height:100%;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.gal-item:hover .gal-bg{transform:scale(1.06)}
+.gal-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,26,46,.88) 0%,rgba(10,26,46,.2) 40%,transparent 70%);opacity:0;transition:opacity .4s}
+.gal-item:hover .gal-overlay{opacity:1}
+.gal-info{position:absolute;bottom:0;left:0;right:0;padding:1.75rem;transform:translateY(12px);opacity:0;transition:all .4s}
+.gal-item:hover .gal-info{transform:none;opacity:1}
+.gal-cat{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--b200);margin-bottom:.25rem}
+.gal-name{font-family:var(--fd);font-size:1.2rem;color:#fff;font-weight:300}
+/* patterns */
+.gp1{background:linear-gradient(135deg,var(--b100) 0%,var(--b200) 100%)}
+.gp2{background:linear-gradient(135deg,#e8d5a0 0%,#c9a84c 100%)}
+.gp3{background:linear-gradient(135deg,var(--b50) 0%,var(--b100) 100%)}
+.gp4{background:linear-gradient(135deg,var(--b200) 0%,var(--b600) 100%)}
+.gp5{background:linear-gradient(135deg,#f0e6d3 0%,#d4b896 100%)}
+.gal-svg{width:100%;height:100%;opacity:.7}
+.gal-cta{text-align:center;margin-top:3.5rem}
+
+/* ── TESTIMONI ── */
+#testimoni{background:var(--ww);overflow:hidden}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.testi-card{background:#fff;border:1px solid rgba(74,157,212,.1);border-radius:6px;padding:2.25rem;transition:all .4s;position:relative;overflow:hidden}
+.testi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--b400),var(--b200));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.testi-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(34,114,168,.1);border-color:transparent}
+.testi-card:hover::before{transform:scaleX(1)}
+.quote-icon{font-family:var(--fd);font-size:5rem;line-height:.5;color:var(--b100);margin-bottom:1rem;display:block}
+.testi-text{font-size:.9rem;color:var(--tm);font-weight:300;line-height:1.85;margin-bottom:1.75rem;font-style:italic}
+.stars{display:flex;gap:3px;margin-bottom:1rem}
+.star{width:13px;height:13px;background:var(--gold);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.testi-author{display:flex;align-items:center;gap:.85rem;border-top:1px solid var(--b50);padding-top:1.25rem}
+.author-av{width:44px;height:44px;border-radius:50%;background:var(--b100);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.1rem;font-weight:600;color:var(--b600);flex-shrink:0}
+.author-name{font-weight:500;font-size:.9rem;color:var(--navy)}
+.author-role{font-size:.76rem;color:var(--tl);font-weight:300}
+
+/* ── KONTAK ── */
+#kontak{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+#kontak::after{content:'';position:absolute;bottom:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(74,157,212,.1) 0%,transparent 65%);pointer-events:none}
+.contact-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:start}
+.contact-info .stag{color:var(--b200)}
+.contact-info .stag::before{background:var(--b400)}
+.contact-info .sec-title{color:#fff}
+.contact-info .sec-sub{color:var(--b100)}
+.cdetails{display:flex;flex-direction:column;gap:1.25rem;margin-top:2rem}
+.citem{display:flex;align-items:flex-start;gap:1rem;padding:.75rem;border-radius:4px;transition:background .3s}
+.citem:hover{background:rgba(74,157,212,.07)}
+.citem-icon{width:42px;height:42px;background:rgba(74,157,212,.12);border:1px solid rgba(74,157,212,.25);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.citem:hover .citem-icon{background:var(--b600);border-color:var(--b600)}
+.citem-icon svg{width:18px;height:18px;stroke:var(--b200);fill:none;stroke-width:1.5;transition:stroke .3s}
+.citem:hover .citem-icon svg{stroke:#fff}
+.citem-label{font-size:.7rem;color:var(--b200);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem}
+.citem-val{font-size:.92rem;color:#fff;font-weight:300}
+.cform{background:rgba(255,255,255,.04);border:1px solid rgba(74,157,212,.15);border-radius:8px;padding:2.75rem;backdrop-filter:blur(10px)}
+.cform h3{font-size:1.6rem;color:#fff;margin-bottom:2rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.fgroup{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.fgroup label{font-size:.7rem;color:var(--b200);letter-spacing:.08em;text-transform:uppercase}
+.fgroup input,.fgroup select,.fgroup textarea{background:rgba(255,255,255,.06);border:1px solid rgba(74,157,212,.2);border-radius:3px;padding:.8rem 1rem;color:#fff;font-family:var(--fb);font-size:.92rem;font-weight:300;outline:none;transition:all .25s;-webkit-appearance:none}
+.fgroup input::placeholder,.fgroup textarea::placeholder{color:rgba(255,255,255,.25)}
+.fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{border-color:var(--b400);background:rgba(74,157,212,.08)}
+.fgroup select option{background:#0d2b42}
+.fgroup textarea{resize:vertical;min-height:100px}
+.btn-submit{width:100%;background:var(--b400);color:#fff;border:none;padding:1rem;font-family:var(--fb);font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .3s;position:relative;overflow:hidden}
+.btn-submit::before{content:'';position:absolute;inset:0;background:var(--b600);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.btn-submit:hover::before{transform:scaleX(1)}
+.btn-submit span{position:relative;z-index:1}
+.btn-submit:hover{transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{background:var(--b900);color:var(--b100);padding:4rem 5rem 2rem}
+.ft-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(74,157,212,.1);margin-bottom:2rem}
+.ft-brand{font-family:var(--fd);font-size:1.7rem;font-weight:600;color:#fff;letter-spacing:.1em;margin-bottom:.75rem}
+.ft-brand span{color:var(--b400)}
+.ft-desc{font-size:.875rem;color:var(--b200);font-weight:300;line-height:1.75;margin-bottom:1.5rem}
+.socials{display:flex;gap:.75rem}
+.social{width:38px;height:38px;border:1px solid rgba(74,157,212,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none}
+.social:hover{background:var(--b600);border-color:var(--b600);transform:translateY(-3px)}
+.social svg{width:15px;height:15px;stroke:var(--b200);fill:none;stroke-width:1.5;transition:stroke .3s}
+.social:hover svg{stroke:#fff}
+.ft-col h5{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;font-weight:500;margin-bottom:1.25rem;font-family:var(--fb)}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.ft-col ul li a{color:var(--b100);text-decoration:none;font-size:.875rem;font-weight:300;transition:all .2s;display:inline-block}
+.ft-col ul li a:hover{color:var(--b400);transform:translateX(4px)}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:rgba(147,196,233,.4)}
+
+/* WA float */
+.wa-btn{position:fixed;bottom:2rem;right:2rem;width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:400;transition:all .3s}
+.wa-btn::before{content:'';position:absolute;width:100%;height:100%;border-radius:50%;background:#25D366;animation:waPulse 2.5s ease-out infinite}
+.wa-btn:hover{transform:scale(1.1);box-shadow:0 8px 30px rgba(37,211,102,.55)}
+.wa-btn svg{width:30px;height:30px;fill:#fff;position:relative;z-index:1}
+@keyframes waPulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+
+/* ── GLOBAL LINK BUTTONS ── */
+.btn-outline{border:1.5px solid var(--b400);color:var(--b600);padding:.85rem 2rem;text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:all .3s;display:inline-block;position:relative;overflow:hidden}
+.btn-outline::before{content:'';position:absolute;inset:0;background:var(--b600);transform:scaleX(0);transform-origin:left;transition:transform .35s;z-index:0}
+.btn-outline:hover{color:#fff;border-color:var(--b600);transform:translateY(-2px)}
+.btn-outline:hover::before{transform:scaleX(1)}
+.btn-outline span{position:relative;z-index:1}
+
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  nav.scrolled{padding:1rem 1.5rem}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--ww);border-bottom:1px solid var(--b100);padding:1rem 1.5rem;gap:1rem}
+  .nav-links a{color:var(--tm) !important}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  section{padding:4.5rem 1.5rem}
+  .hero-content{padding:0 1.5rem;padding-top:80px}
+  .hero-stats-float{right:1.5rem;bottom:2rem}
+  .hero-scroll{left:1.5rem}
+  .svc-grid{grid-template-columns:1fr}
+  .steps-wrap{grid-template-columns:1fr 1fr;gap:3rem}
+  .steps-line{display:none}
+  .feat-layout{grid-template-columns:1fr}
+  .feat-visual{display:none}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gal-item:first-child{grid-row:span 1}
+  .gal-item{height:200px}
+  .testi-grid{grid-template-columns:1fr}
+  .contact-layout{grid-template-columns:1fr;gap:2.5rem}
+  .frow{grid-template-columns:1fr}
+  footer{padding:3rem 1.5rem 1.5rem}
+  .ft-top{grid-template-columns:1fr 1fr;gap:2rem}
+  .ft-bottom{flex-direction:column;gap:.5rem;text-align:center}
+  .cursor,.cursor-ring{display:none}
+}
+  </style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursorDot" style="position:fixed;top:0;left:0"><div class="cursor-dot"></div></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo"><span>Taba</span> Fashion</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-sub">Menghadirkan Kualitas Terbaik</div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#"><span>Taba</span> Fashion</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#proses">Proses</a></li>
+    <li><a href="#portofolio">Portofolio</a></li>
+    <li><a href="#testimoni">Testimoni</a></li>
+    <li><a href="#kontak" class="nav-cta">Pesan Sekarang</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Konveksi & Tailor Premium — Bandung</span>
+    </div>
+    <h1>
+      <span class="hero-line">Busana</span>
+      <span class="hero-line">Berkelas,</span>
+      <span class="hero-line">Dibuat Khusus</span>
+    </h1>
+    <p class="hero-desc">Dari seragam korporat hingga busana pernikahan — kami menghadirkan kualitas jahitan terbaik dengan bahan premium dan sentuhan personal yang tak tertandingi.</p>
+    <div class="hero-btns">
+      <a href="#kontak" class="btn-primary"><span>Konsultasi Gratis</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:relative;z-index:1"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#portofolio" class="btn-glass">Lihat Karya <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+
+  <div class="hero-stats-float">
+    <div class="hero-stat">
+      <div class="hero-stat-n">500+</div>
+      <div class="hero-stat-l">Pelanggan Puas</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">8+</div>
+      <div class="hero-stat-l">Tahun Pengalaman</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="mitem">Seragam Kantor</span>
+    <span class="mitem">Batik Custom</span>
+    <span class="mitem">Busana Pesta</span>
+    <span class="mitem">Kemeja Bordir</span>
+    <span class="mitem">Kaos Sablon</span>
+    <span class="mitem">Jas & Blazer</span>
+    <span class="mitem">Kebaya Modern</span>
+    <span class="mitem">Konveksi Massal</span>
+    <span class="mitem">Seragam Kantor</span>
+    <span class="mitem">Batik Custom</span>
+    <span class="mitem">Busana Pesta</span>
+    <span class="mitem">Kemeja Bordir</span>
+    <span class="mitem">Kaos Sablon</span>
+    <span class="mitem">Jas & Blazer</span>
+    <span class="mitem">Kebaya Modern</span>
+    <span class="mitem">Konveksi Massal</span>
+  </div>
+</div>
+
+<!-- LAYANAN -->
+<section id="layanan">
+  <div class="stag fade-slide">Apa yang Kami Tawarkan</div>
+  <h2 class="sec-title fade-slide d1">Layanan<br>Unggulan Kami</h2>
+  <p class="sec-sub fade-slide d2">Dikerjakan oleh penjahit berpengalaman dengan mesin modern dan standar kualitas premium di setiap jahitan.</p>
+
+  <div class="svc-grid">
+    <div class="svc-card scale-in">
+      <div class="svc-num">01</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <h3>Seragam Korporat</h3>
+      <p>Seragam kantor dan perusahaan profesional dengan bordir logo rapi. Cocok untuk instansi, hotel, restoran, dan korporasi besar.</p>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="svc-card scale-in d1">
+      <div class="svc-num">02</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>Custom Tailoring</h3>
+      <p>Jas, blazer, kemeja, celana formal — semua dibuat presisi dengan pola yang disesuaikan dengan bentuk tubuh Anda secara personal.</p>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="svc-card scale-in d2">
+      <div class="svc-num">03</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <h3>Busana Pernikahan</h3>
+      <p>Gaun, kebaya, beskap, dan busana pesta pernikahan dengan sentuhan elegan. Konsultasi desain gratis untuk momen paling spesial Anda.</p>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="svc-card scale-in d3">
+      <div class="svc-num">04</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <h3>Sablon & Bordir</h3>
+      <p>Sablon DTF, rubber, dan bordir komputer resolusi tinggi. Minimum order fleksibel, cocok untuk komunitas, UMKM, dan event organizer.</p>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="svc-card scale-in d4">
+      <div class="svc-num">05</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <h3>Batik & Tenun Custom</h3>
+      <p>Kemeja, tunik, dan seragam dari kain batik atau tenun pilihan. Motif bisa disesuaikan dengan identitas brand atau instansi Anda.</p>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="svc-card scale-in d5">
+      <div class="svc-num">06</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+      <h3>Konveksi Massal</h3>
+      <p>Kapasitas produksi hingga ribuan potong per bulan. Konsisten, tepat waktu, dan harga bersaing untuk kebutuhan bisnis skala besar.</p>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROSES -->
+<section id="proses">
+  <div class="proses-header">
+    <div class="stag fade-slide" style="justify-content:center">Cara Kerja Kami</div>
+    <h2 class="sec-title fade-slide d1" style="text-align:center">Proses Pemesanan</h2>
+    <p class="sec-sub fade-slide d2" style="text-align:center">Mudah, transparan, dan terpercaya — dari konsultasi hingga produk siap di tangan Anda.</p>
+  </div>
+  <div class="steps-wrap">
+    <div class="steps-line"><div class="steps-line-bg"></div><div class="steps-line-progress" id="stepsProgress"></div></div>
+    <div class="step-item fade-slide">
+      <div class="step-dot"><div class="step-dot-inner"><span class="step-num">1</span></div></div>
+      <h4>Konsultasi</h4>
+      <p>Diskusikan kebutuhan dan desain melalui WhatsApp, telepon, atau kunjungan langsung ke workshop kami.</p>
+    </div>
+    <div class="step-item fade-slide d1">
+      <div class="step-dot"><div class="step-dot-inner"><span class="step-num">2</span></div></div>
+      <h4>Pengukuran</h4>
+      <p>Tim kami datang ke lokasi Anda, atau Anda mengirimkan ukuran sesuai panduan yang kami berikan.</p>
+    </div>
+    <div class="step-item fade-slide d2">
+      <div class="step-dot"><div class="step-dot-inner"><span class="step-num">3</span></div></div>
+      <h4>Produksi</h4>
+      <p>Jahit oleh tim berpengalaman dengan mesin modern. Pantau progress secara real-time.</p>
+    </div>
+    <div class="step-item fade-slide d3">
+      <div class="step-dot"><div class="step-dot-inner"><span class="step-num">4</span></div></div>
+      <h4>Pengiriman</h4>
+      <p>Dikemas rapi dan dikirim ke seluruh Indonesia, atau diambil langsung di workshop kami.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KEUNGGULAN -->
+<section id="keunggulan">
+  <div class="feat-layout">
+    <div>
+      <div class="stag feat-stag fade-slide">Mengapa Taba Fashion</div>
+      <h2 class="sec-title feat-title fade-slide d1">Kualitas<br>Tanpa<br>Kompromi</h2>
+      <p class="sec-sub feat-sub fade-slide d2">Standar premium di setiap proses — dari bahan baku hingga jahitan terakhir.</p>
+      <div class="feat-list">
+        <div class="feat-item fade-slide d2">
+          <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><h4>Bahan Premium Pilihan</h4><p>Katun, wool, polyester premium, hingga sutra — dari supplier terpercaya dengan seleksi ketat.</p></div>
+        </div>
+        <div class="feat-item fade-slide d3">
+          <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><h4>Tepat Waktu, Sesuai Janji</h4><p>Track record 98% pengiriman tepat waktu. Kami menghargai waktu dan kepercayaan Anda.</p></div>
+        </div>
+        <div class="feat-item fade-slide d4">
+          <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><h4>Garansi Kerapian Jahitan</h4><p>Setiap produk melalui QC ketat. Ada ketidaksesuaian? Kami perbaiki tanpa biaya tambahan.</p></div>
+        </div>
+        <div class="feat-item fade-slide d5">
+          <div class="feat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><h4>Harga Transparan</h4><p>Semua biaya dijelaskan di awal. Tidak ada biaya tersembunyi, tidak ada kejutan di akhir.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="feat-visual fade-slide-r">
+      <div style="position:relative;height:480px">
+        <div class="fv-card fv-back"></div>
+        <div class="fv-card fv-main">
+          <div class="fv-label">Total Produksi Per Tahun</div>
+          <div class="fv-big"><span class="counter-val" data-target="12500">0</span>+</div>
+          <div class="fv-sub">Potong busana berkualitas</div>
+        </div>
+        <div class="fv-mini">
+          <div class="fv-mini-l">Rating Kepuasan</div>
+          <div class="fv-mini-v">4.9 <span style="font-size:1rem;opacity:.7">/ 5.0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTOFOLIO -->
+<section id="portofolio">
+  <div class="stag fade-slide">Karya Terbaik Kami</div>
+  <h2 class="sec-title fade-slide d1">Portofolio</h2>
+  <p class="sec-sub fade-slide d2">Setiap karya mencerminkan dedikasi kami terhadap keindahan dan presisi dalam setiap jahitan.</p>
+
+  <div class="gal-grid">
+    <div class="gal-item scale-in">
+      <div class="gal-bg gp1">
+        <svg class="gal-svg" viewBox="0 0 400 504" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="gp1pat" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M0 15 L15 0 L30 15 L15 30Z" fill="none" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></pattern></defs>
+          <rect width="400" height="504" fill="url(#gp1pat)"/>
+          <g transform="translate(100,80)" opacity=".5">
+            <path d="M100 0 L65 35 L30 25 L5 70 L40 82 L40 200 L160 200 L160 82 L195 70 L170 25 L135 35Z" fill="rgba(13,43,66,.5)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+          </g>
+          <rect x="120" y="420" width="160" height="52" rx="3" fill="rgba(13,43,66,.55)"/>
+          <text x="200" y="444" text-anchor="middle" fill="white" font-family="Georgia" font-size="12" font-weight="300">Kemeja Formal</text>
+          <text x="200" y="462" text-anchor="middle" fill="rgba(147,196,233,.8)" font-family="Georgia" font-size="10">Custom Tailoring</text>
+        </svg>
+      </div>
+      <div class="gal-overlay"></div>
+      <div class="gal-info"><div class="gal-cat">Custom Tailoring</div><div class="gal-name">Kemeja Formal Prestige</div></div>
+    </div>
+
+    <div class="gal-item scale-in d1">
+      <div class="gal-bg gp2" style="height:100%">
+        <svg class="gal-svg" viewBox="0 0 300 250" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="gp2pat" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1.5" fill="rgba(255,255,255,.35)"/></pattern></defs>
+          <rect width="300" height="250" fill="url(#gp2pat)"/>
+          <path d="M150 30 Q200 90 200 130 Q200 190 150 210 Q100 190 100 130 Q100 90 150 30Z" fill="rgba(13,43,66,.35)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+          <text x="150" y="136" text-anchor="middle" fill="rgba(255,255,255,.85)" font-family="Georgia" font-size="12">KEBAYA</text>
+        </svg>
+      </div>
+      <div class="gal-overlay"></div>
+      <div class="gal-info"><div class="gal-cat">Bridal</div><div class="gal-name">Kebaya Modern</div></div>
+    </div>
+
+    <div class="gal-item scale-in d2">
+      <div class="gal-bg gp4" style="height:100%">
+        <svg class="gal-svg" viewBox="0 0 300 250" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="gp4pat" width="16" height="16" patternUnits="userSpaceOnUse"><line x1="0" y1="8" x2="16" y2="8" stroke="rgba(255,255,255,.15)" stroke-width=".8"/><line x1="8" y1="0" x2="8" y2="16" stroke="rgba(255,255,255,.15)" stroke-width=".8"/></pattern></defs>
+          <rect width="300" height="250" fill="url(#gp4pat)"/>
+          <rect x="60" y="50" width="180" height="150" rx="4" fill="rgba(10,26,46,.5)" stroke="rgba(147,196,233,.3)" stroke-width="1"/>
+          <text x="150" y="122" text-anchor="middle" fill="white" font-family="Georgia" font-size="11">SERAGAM</text>
+          <text x="150" y="140" text-anchor="middle" fill="rgba(147,196,233,.8)" font-family="Georgia" font-size="9">KORPORAT</text>
+        </svg>
+      </div>
+      <div class="gal-overlay"></div>
+      <div class="gal-info"><div class="gal-cat">Korporat</div><div class="gal-name">Seragam Perusahaan</div></div>
+    </div>
+
+    <div class="gal-item scale-in d3">
+      <div class="gal-bg gp5" style="height:100%">
+        <svg class="gal-svg" viewBox="0 0 300 250" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="gp5pat" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 0 L24 24 M24 0 L0 24" stroke="rgba(201,168,76,.4)" stroke-width=".8"/></pattern></defs>
+          <rect width="300" height="250" fill="url(#gp5pat)"/>
+          <path d="M80 200 L150 50 L220 200Z" fill="rgba(13,43,66,.3)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+          <text x="150" y="162" text-anchor="middle" fill="rgba(13,43,66,.7)" font-family="Georgia" font-size="11">JAS & BLAZER</text>
+        </svg>
+      </div>
+      <div class="gal-overlay"></div>
+      <div class="gal-info"><div class="gal-cat">Formal</div><div class="gal-name">Jas Blazer Custom</div></div>
+    </div>
+
+    <div class="gal-item scale-in d4">
+      <div class="gal-bg gp3" style="height:100%">
+        <svg class="gal-svg" viewBox="0 0 300 250" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="gp3pat" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="3" fill="none" stroke="rgba(74,157,212,.35)" stroke-width="1"/></pattern></defs>
+          <rect width="300" height="250" fill="url(#gp3pat)"/>
+          <rect x="70" y="60" width="160" height="130" rx="6" fill="rgba(34,114,168,.25)" stroke="rgba(74,157,212,.4)" stroke-width="1"/>
+          <text x="150" y="122" text-anchor="middle" fill="rgba(20,79,120,.8)" font-family="Georgia" font-size="11">BATIK CUSTOM</text>
+          <text x="150" y="140" text-anchor="middle" fill="rgba(34,114,168,.6)" font-family="Georgia" font-size="9">Modern Klasik</text>
+        </svg>
+      </div>
+      <div class="gal-overlay"></div>
+      <div class="gal-info"><div class="gal-cat">Batik</div><div class="gal-name">Batik Custom Modern</div></div>
+    </div>
+  </div>
+
+  <div class="gal-cta fade-slide">
+    <a href="#kontak" class="btn-outline"><span>Pesan Custom Design Anda →</span></a>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section id="testimoni">
+  <div class="stag fade-slide">Kata Pelanggan Kami</div>
+  <h2 class="sec-title fade-slide d1">Testimoni</h2>
+  <p class="sec-sub fade-slide d2">Kepercayaan pelanggan adalah motivasi terbesar kami untuk terus berkembang dan berinovasi.</p>
+  <div class="testi-grid">
+    <div class="testi-card scale-in">
+      <span class="quote-icon">"</span>
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testi-text">Seragam kantor yang dibuat Taba Fashion benar-benar melebihi ekspektasi kami. Bahan nyaman, jahitan rapi, dan pengiriman lebih cepat dari yang dijanjikan. Pasti akan pesan lagi!</p>
+      <div class="testi-author">
+        <div class="author-av">SR</div>
+        <div><div class="author-name">Siti Rahayu</div><div class="author-role">HRD Manager, PT Nusantara Karya</div></div>
+      </div>
+    </div>
+    <div class="testi-card scale-in d1">
+      <span class="quote-icon">"</span>
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testi-text">Kebaya pernikahan saya dibuat di Taba Fashion dan hasilnya sangat cantik! Tim mereka sangat sabar dan hasilnya persis seperti yang saya impikan sejak awal.</p>
+      <div class="testi-author">
+        <div class="author-av">DA</div>
+        <div><div class="author-name">Dewi Anggraini</div><div class="author-role">Pelanggan Custom Bridal</div></div>
+      </div>
+    </div>
+    <div class="testi-card scale-in d2">
+      <span class="quote-icon">"</span>
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="testi-text">Sudah 3 tahun berlangganan untuk seragam kafe kami. Konsistensi kualitas Taba Fashion tidak pernah mengecewakan. Sangat rekomendasikan!</p>
+      <div class="testi-author">
+        <div class="author-av">BP</div>
+        <div><div class="author-name">Bagas Pratama</div><div class="author-role">Owner, Kafe Rempah Nusantara</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section id="kontak">
+  <div class="contact-layout">
+    <div class="contact-info fade-slide">
+      <div class="stag">Hubungi Kami</div>
+      <h2 class="sec-title" style="color:#fff">Siap Mulai<br>Proyek Anda?</h2>
+      <p class="sec-sub" style="color:var(--b100)">Konsultasikan kebutuhan Anda dengan tim kami. Gratis, tanpa komitmen.</p>
+      <div class="cdetails">
+        <div class="citem">
+          <div class="citem-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="citem-label">Alamat</div><div class="citem-val">Jl. Raya Cibaduyut No. 88, Bandung, Jawa Barat</div></div>
+        </div>
+        <div class="citem">
+          <div class="citem-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="citem-label">WhatsApp / Telepon</div><div class="citem-val">+62 812-3456-7890</div></div>
+        </div>
+        <div class="citem">
+          <div class="citem-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="citem-label">Email</div><div class="citem-val">halo@tabafashion.id</div></div>
+        </div>
+        <div class="citem">
+          <div class="citem-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><div class="citem-label">Jam Operasional</div><div class="citem-val">Senin – Sabtu, 08.00 – 17.00 WIB</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cform fade-slide-r">
+      <h3>Kirim Pesan</h3>
+      <div class="frow">
+        <div class="fgroup"><label>Nama Lengkap</label><input type="text" placeholder="Nama Anda"/></div>
+        <div class="fgroup"><label>No. WhatsApp</label><input type="tel" placeholder="+62 8xx-xxxx-xxxx"/></div>
+      </div>
+      <div class="fgroup"><label>Email</label><input type="email" placeholder="email@anda.com"/></div>
+      <div class="fgroup">
+        <label>Jenis Layanan</label>
+        <select>
+          <option value="">Pilih layanan...</option>
+          <option>Seragam Korporat / Instansi</option>
+          <option>Custom Tailoring</option>
+          <option>Busana Pernikahan</option>
+          <option>Sablon & Bordir</option>
+          <option>Batik Custom</option>
+          <option>Konveksi Massal</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+      <div class="fgroup"><label>Deskripsi Kebutuhan</label><textarea placeholder="Ceritakan kebutuhan Anda: jumlah, model, bahan, deadline, dll."></textarea></div>
+      <button class="btn-submit" onclick="submitForm(this)"><span>Kirim Pesan →</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <div class="ft-brand"><span>Taba</span> Fashion</div>
+      <p class="ft-desc">Konveksi dan tailor premium di Bandung yang menghadirkan busana berkualitas dengan sentuhan personal sejak 2016.</p>
+      <div class="socials">
+        <a class="social" href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a class="social" href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a class="social" href="#"><svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+      </div>
+    </div>
+    <div class="ft-col">
+      <h5>Layanan</h5>
+      <ul>
+        <li><a href="#layanan">Seragam Korporat</a></li>
+        <li><a href="#layanan">Custom Tailoring</a></li>
+        <li><a href="#layanan">Busana Pernikahan</a></li>
+        <li><a href="#layanan">Sablon & Bordir</a></li>
+        <li><a href="#layanan">Batik Custom</a></li>
+        <li><a href="#layanan">Konveksi Massal</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Informasi</h5>
+      <ul>
+        <li><a href="#proses">Cara Pemesanan</a></li>
+        <li><a href="#portofolio">Portofolio</a></li>
+        <li><a href="#testimoni">Testimoni</a></li>
+        <li><a href="#kontak">Hubungi Kami</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Kontak</h5>
+      <ul>
+        <li><a href="tel:+6281234567890">+62 812-3456-7890</a></li>
+        <li><a href="mailto:halo@tabafashion.id">halo@tabafashion.id</a></li>
+        <li><a href="#">@tabafashion</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2024 Taba Fashion. Semua hak dilindungi.</span>
+    <span>Made with ♥ in Bandung</span>
+  </div>
+</footer>
+
+<!-- WA Float -->
+<a class="wa-btn" href="https://wa.me/6281234567890?text=Halo%20Taba%20Fashion%2C%20saya%20ingin%20berkonsultasi" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+/* ── LOADER ── */
+window.addEventListener('load', () => {
+  setTimeout(() => { document.getElementById('loader').classList.add('done'); }, 1800);
+});
+
+/* ── CUSTOM CURSOR ── */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+});
+(function animateRing() {
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+})();
+document.querySelectorAll('a,button,.svc-card,.testi-card,.gal-item,.feat-item,.citem').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+});
+
+/* ── HERO THREAD CANVAS ── */
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, threads = [];
+function resize() {
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Thread {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - .5) * .4;
+    this.vy = (Math.random() - .5) * .4;
+    this.life = 0;
+    this.maxLife = 180 + Math.random() * 220;
+    this.len = 40 + Math.random() * 80;
+    this.hue = Math.random() > .7 ? 201 : 38; // blue or gold
+    this.alpha = .15 + Math.random() * .2;
+    this.angle = Math.random() * Math.PI * 2;
+    this.angleSpeed = (Math.random() - .5) * .01;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    this.angle += this.angleSpeed;
+    this.life++;
+    if (this.life > this.maxLife || this.x < -100 || this.x > W+100 || this.y < -100 || this.y > H+100) this.reset();
+  }
+  draw() {
+    const prog = this.life / this.maxLife;
+    const alpha = this.alpha * Math.sin(prog * Math.PI);
+    const ex = this.x + Math.cos(this.angle) * this.len;
+    const ey = this.y + Math.sin(this.angle) * this.len;
+    const g = ctx.createLinearGradient(this.x, this.y, ex, ey);
+    g.addColorStop(0, `hsla(${this.hue},70%,70%,0)`);
+    g.addColorStop(.5, `hsla(${this.hue},70%,70%,${alpha})`);
+    g.addColorStop(1, `hsla(${this.hue},70%,70%,0)`);
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(ex, ey);
+    ctx.strokeStyle = g;
+    ctx.lineWidth = .8;
+    ctx.stroke();
+  }
+}
+for (let i = 0; i < 60; i++) threads.push(new Thread());
+function animThreads() {
+  ctx.clearRect(0, 0, W, H);
+  threads.forEach(t => { t.update(); t.draw(); });
+  requestAnimationFrame(animThreads);
+}
+animThreads();
+
+/* ── NAVBAR SCROLL ── */
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', scrollY > 60); });
+
+/* ── HAMBURGER ── */
+const ham = document.getElementById('hamburger');
+const nl = document.getElementById('navLinks');
+ham.addEventListener('click', () => nl.classList.toggle('open'));
+nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nl.classList.remove('open')));
+
+/* ── SCROLL REVEAL ── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-slide,.fade-slide-r,.scale-in,.clip-reveal,.step-item').forEach(el => revealObs.observe(el));
+
+/* Steps progress line */
+const stepsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) document.getElementById('stepsProgress').classList.add('vis'); });
+}, {threshold: .3});
+const stepsWrap = document.querySelector('.steps-wrap');
+if (stepsWrap) stepsObs.observe(stepsWrap);
+
+/* ── COUNTER ANIMATION ── */
+function animCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const dur = 2000;
+  const start = performance.now();
+  function tick(now) {
+    const prog = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - prog, 4);
+    el.textContent = Math.round(ease * target).toLocaleString('id');
+    if (prog < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter-val').forEach(animCounter);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, {threshold: .4});
+document.querySelectorAll('.feat-visual').forEach(el => counterObs.observe(el));
+
+/* ── FORM SUBMIT ── */
+function submitForm(btn) {
+  btn.querySelector('span').textContent = 'Mengirim...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.querySelector('span').textContent = '✓ Pesan Terkirim! Kami segera menghubungi Anda';
+    btn.style.background = '#1D9E75';
+    setTimeout(() => {
+      btn.querySelector('span').textContent = 'Kirim Pesan →';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  }, 1200);
+}
+
+/* ── MAGNETIC BUTTONS ── */
+document.querySelectorAll('.btn-primary,.btn-glass,.btn-outline,.nav-cta').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width/2;
+    const y = e.clientY - r.top - r.height/2;
+    btn.style.transform = `translate(${x*.12}px,${y*.18}px) translateY(-2px)`;
+  });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+});
+</script>
+</body>
+</html>
